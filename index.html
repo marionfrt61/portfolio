@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-
+<html lang="fr"><head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — Marion Féret</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
@@ -980,7 +979,53 @@
 
   .accent-tr { top: -100px; right: -100px; width: 400px; height: 400px; }
   .accent-bl { bottom: -80px; left: -80px; width: 300px; height: 300px; }
+
+  /* ─── MODE ÉDITION AJOUTÉ ─── */
+  .edit-toolbar {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 9999;
+    display: flex;
+    gap: 8px;
+    background: rgba(44,26,14,0.92);
+    border: 1px solid rgba(232,213,192,0.25);
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 8px 28px rgba(44,26,14,0.35);
+    backdrop-filter: blur(8px);
+  }
+
+  .edit-toolbar button {
+    font-family: 'Inter', sans-serif;
+    border: 1px solid rgba(232,213,192,0.35);
+    background: rgba(196,98,45,0.22);
+    color: var(--sand);
+    border-radius: 100px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+  }
+
+  .edit-toolbar button:hover {
+    background: rgba(196,98,45,0.42);
+  }
+
+  body.edit-mode [contenteditable="true"] {
+    outline: 1.5px dashed rgba(196,98,45,0.5);
+    outline-offset: 3px;
+    cursor: text;
+  }
+
+  body.edit-mode [contenteditable="true"]:focus {
+    outline: 2px solid var(--terracotta);
+    background: rgba(255,255,255,0.18);
+  }
+
   @media print {
+    .edit-toolbar { display: none !important; }
     .side-nav { display: none !important; }
     body { background: #FAF6F0; }
     section { break-inside: avoid; page-break-inside: avoid; }
@@ -988,12 +1033,19 @@
 
 </style>
 </head>
-<body>
+<body class="">
+
+<div class="edit-toolbar" aria-label="Outils d'édition">
+  <button onclick="toggleEdit()">Modifier les textes</button>
+  <button onclick="downloadEdited()">Télécharger la version modifiée</button>
+  <button onclick="window.print()">Exporter PDF</button>
+</div>
+
 
 <!-- NAV LATÉRALE -->
 <nav class="side-nav" aria-label="Navigation">
   <div class="nav-item" onclick="scrollTo('hero')">
-    <div class="nav-dot" id="dot-hero"></div>
+    <div class="nav-dot active" id="dot-hero"></div>
     <span class="nav-label">Accueil</span>
   </div>
   <div class="nav-line"></div>
@@ -1008,7 +1060,7 @@
   </div>
   <div class="nav-line"></div>
   <div class="nav-item" onclick="scrollTo('axe1')">
-    <div class="nav-dot active" id="dot-axe1"></div>
+    <div class="nav-dot" id="dot-axe1"></div>
     <span class="nav-label">Axe 1 — Accompagnement</span>
   </div>
   <div class="nav-line"></div>
@@ -1037,18 +1089,18 @@
       <div class="hero-circle hero-circle-3"></div>
     </div>
     <div class="hero-content">
-      <p class="hero-eyebrow">Portfolio professionnel · Master DAFIR · Université de Caen</p>
-      <h1 class="hero-name">Marion <em>Féret</em></h1>
-      <p class="hero-subtitle">Sciences de l'éducation et de la formation</p>
-      <p class="hero-tagline">« Observer, comprendre, agir : un parcours au service de la prévention »</p>
+      <p class="hero-eyebrow" contenteditable="true">Portfolio professionnel · Master DAFIR · Université de Caen</p>
+      <h1 class="hero-name" contenteditable="true">Marion <em>Féret</em></h1>
+      <p class="hero-subtitle" contenteditable="true">Sciences de l'éducation et de la formation</p>
+      <p class="hero-tagline" contenteditable="true">« Observer, comprendre, agir : un parcours au service de la prévention »</p>
       <div class="hero-pills">
-        <span class="hero-pill">Accompagnement des publics</span>
-        <span class="hero-pill">Prévention en santé et sexualité</span>
-        <span class="hero-pill">Conduite de projets</span>
+        <span class="hero-pill" contenteditable="true">Accompagnement des publics</span>
+        <span class="hero-pill" contenteditable="true">Prévention en santé et sexualité</span>
+        <span class="hero-pill" contenteditable="true">Conduite de projets</span>
       </div>
     </div>
     <div class="hero-scroll">
-      <span>Découvrir</span>
+      <span contenteditable="true">Découvrir</span>
       <div class="scroll-arrow"></div>
     </div>
   </div>
@@ -1065,34 +1117,34 @@
 <section id="accueil">
   <div class="section-accent accent-tr"></div>
   <div class="section-inner">
-    <p class="section-eyebrow fade-in visible">Bienvenue</p>
-    <h2 class="section-title fade-in visible">Construction de mon&nbsp;<em>identité professionnelle</em></h2>
+    <p class="section-eyebrow fade-in visible" contenteditable="true">Bienvenue</p>
+    <h2 class="section-title fade-in visible" contenteditable="true">Construction de mon&nbsp;<em>identité professionnelle</em></h2>
     <div class="intro-grid">
       <div class="intro-text fade-in visible">
-        <p>Ce portfolio retrace la construction progressive de mon identité professionnelle au fil de mes expériences — depuis un service civique en école primaire jusqu'à une recherche-intervention dans un collège.</p>
-        <p>Chaque expérience a progressivement déplacé mon regard : de l'accompagnement individuel vers la prévention, puis vers la conception de dispositifs destinés à soutenir à la fois les professionnels et les publics.</p>
-        <p>Le stage de M2 constitue le point le plus développé de ce portfolio ; les pages qui précèdent en posent les fondations.</p>
+        <p contenteditable="true">Ce portfolio retrace la construction progressive de mon identité professionnelle au fil de mes expériences — depuis un service civique en école primaire jusqu'à une recherche-intervention dans un collège.</p>
+        <p contenteditable="true">Chaque expérience a progressivement déplacé mon regard : de l'accompagnement individuel vers la prévention, puis vers la conception de dispositifs destinés à soutenir à la fois les professionnels et les publics.</p>
+        <p contenteditable="true">Le stage de M2 constitue le point le plus développé de ce portfolio ; les pages qui précèdent en posent les fondations.</p>
       </div>
       <div class="intro-axes fade-in visible">
         <a href="#axe1" style="text-decoration:none;">
           <div class="axe-card">
-            <div class="axe-card-num">Axe 1</div>
-            <div class="axe-card-title">L'accompagnement des publics</div>
-            <div class="axe-card-desc">Ajuster sa posture à la singularité de chaque personne, plutôt qu'appliquer une réponse standardisée.</div>
+            <div class="axe-card-num" contenteditable="true">Axe 1</div>
+            <div class="axe-card-title" contenteditable="true">L'accompagnement des publics</div>
+            <div class="axe-card-desc" contenteditable="true">Ajuster sa posture à la singularité de chaque personne, plutôt qu'appliquer une réponse standardisée.</div>
           </div>
         </a>
         <a href="#axe2" style="text-decoration:none;">
           <div class="axe-card">
-            <div class="axe-card-num" style="color:var(--terracotta-light)">Axe 2</div>
-            <div class="axe-card-title">La prévention en santé et sexualité</div>
-            <div class="axe-card-desc">Passer de l'écoute des représentations à la conception d'outils de prévention adaptés.</div>
+            <div class="axe-card-num" style="color:var(--terracotta-light)" contenteditable="true">Axe 2</div>
+            <div class="axe-card-title" contenteditable="true">La prévention en santé et sexualité</div>
+            <div class="axe-card-desc" contenteditable="true">Passer de l'écoute des représentations à la conception d'outils de prévention adaptés.</div>
           </div>
         </a>
         <a href="#axe3" style="text-decoration:none;">
           <div class="axe-card">
-            <div class="axe-card-num" style="color:var(--ocre)">Axe 3</div>
-            <div class="axe-card-title">La conception de dispositifs pédagogiques</div>
-            <div class="axe-card-desc">Co-construction d'une séance EVARS en collège, au cœur d'une recherche-intervention.</div>
+            <div class="axe-card-num" style="color:var(--ocre)" contenteditable="true">Axe 3</div>
+            <div class="axe-card-title" contenteditable="true">La conception de dispositifs pédagogiques</div>
+            <div class="axe-card-desc" contenteditable="true">Co-construction d'une séance EVARS en collège, au cœur d'une recherche-intervention.</div>
           </div>
         </a>
       </div>
@@ -1111,60 +1163,60 @@
 <section id="parcours">
   <div class="section-accent accent-bl"></div>
   <div class="section-inner">
-    <p class="section-eyebrow fade-in visible">Page 1</p>
-    <h2 class="section-title fade-in visible">Mon parcours, <em>mes expériences</em></h2>
+    <p class="section-eyebrow fade-in visible" contenteditable="true">Page 1</p>
+    <h2 class="section-title fade-in visible" contenteditable="true">Mon parcours, <em>mes expériences</em></h2>
     <div class="timeline">
 
       <div class="timeline-item fade-in visible">
         <div class="timeline-dot"></div>
-        <div class="timeline-date">2020</div>
-        <div class="timeline-title">Baccalauréat ES — Le projet initial</div>
-        <div class="timeline-body">À l'issue du lycée, mon projet était de devenir professeure des écoles. Avant de m'engager dans cette voie, j'ai souhaité découvrir concrètement le métier à travers une première expérience de terrain.</div>
-        <span class="timeline-tag">Orientation</span>
+        <div class="timeline-date" contenteditable="true">2020</div>
+        <div class="timeline-title" contenteditable="true">Baccalauréat ES — Le projet initial</div>
+        <div class="timeline-body" contenteditable="true">À l'issue du lycée, mon projet était de devenir professeure des écoles. Avant de m'engager dans cette voie, j'ai souhaité découvrir concrètement le métier à travers une première expérience de terrain.</div>
+        <span class="timeline-tag" contenteditable="true">Orientation</span>
       </div>
 
       <div class="timeline-item fade-in visible">
         <div class="timeline-dot"></div>
-        <div class="timeline-date">Déc. 2020 — Juin 2021</div>
-        <div class="timeline-title">Service civique — École primaire et maternelle</div>
-        <div class="timeline-body">
+        <div class="timeline-date" contenteditable="true">Déc. 2020 — Juin 2021</div>
+        <div class="timeline-title" contenteditable="true">Service civique — École primaire et maternelle</div>
+        <div class="timeline-body" contenteditable="true">
           Accompagnement d'élèves à besoins éducatifs particuliers (TSA, TDAH, HPI, dépression). Ce n'est pas l'enseignement qui a retenu mon attention, mais l'accompagnement de ces élèves en situation de vulnérabilité. <strong>Bascule décisive : vers l'accompagnement plutôt que l'enseignement.</strong>
         </div>
-        <span class="timeline-tag">Service civique</span>
-        <span class="timeline-tag">Découverte terrain</span>
+        <span class="timeline-tag" contenteditable="true">Service civique</span>
+        <span class="timeline-tag" contenteditable="true">Découverte terrain</span>
       </div>
 
       <div class="timeline-item fade-in visible">
         <div class="timeline-dot"></div>
-        <div class="timeline-date">2021 — 2024</div>
-        <div class="timeline-title">Licence de psychologie</div>
-        <div class="timeline-body">
+        <div class="timeline-date" contenteditable="true">2021 — 2024</div>
+        <div class="timeline-title" contenteditable="true">Licence de psychologie</div>
+        <div class="timeline-body" contenteditable="true">
           Spécialisation en psychologie sociale : mécanismes de prévention, de sensibilisation, d'influence des comportements. En parallèle, engagement associatif actif dans des actions de lutte contre les violences sexistes et sexuelles.
         </div>
-        <span class="timeline-tag">Psychologie sociale</span>
-        <span class="timeline-tag">Engagement VSS</span>
+        <span class="timeline-tag" contenteditable="true">Psychologie sociale</span>
+        <span class="timeline-tag" contenteditable="true">Engagement VSS</span>
       </div>
 
       <div class="timeline-item fade-in visible">
         <div class="timeline-dot"></div>
-        <div class="timeline-date">Master DAFIR — M1</div>
-        <div class="timeline-title">Université de Caen · Entrée en vigueur du programme EVARS</div>
-        <div class="timeline-body">
+        <div class="timeline-date" contenteditable="true">Master DAFIR — M1</div>
+        <div class="timeline-title" contenteditable="true">Université de Caen · Entrée en vigueur du programme EVARS</div>
+        <div class="timeline-body" contenteditable="true">
           Mémoire sur les représentations des adolescents en matière de relations et de sexualité. Stage à <em>La Voix des Femmes</em> : médiation santé, animation de séances, conception d'un café citoyen autour de la ménopause.
         </div>
-        <span class="timeline-tag">Mémoire M1</span>
-        <span class="timeline-tag">Stage association</span>
-        <span class="timeline-tag">Conception d'outil</span>
+        <span class="timeline-tag" contenteditable="true">Mémoire M1</span>
+        <span class="timeline-tag" contenteditable="true">Stage association</span>
+        <span class="timeline-tag" contenteditable="true">Conception d'outil</span>
       </div>
 
       <div class="timeline-item fade-in visible">
         <div class="timeline-dot"></div>
-        <div class="timeline-date">Master DAFIR — M2</div>
-        <div class="timeline-title">Stage et recherche-intervention · Collège de l'Orne</div>
-        <div class="timeline-body">Co-construction de séances d'éducation à la vie affective relationnelle et sexuelle (EVARS) avec l'équipe éducative, à partir des besoins identifiés chez les élèves et les professionnels, dans le cadre d'une recherche-intervention.</div>
-        <span class="timeline-tag">Recherche-intervention</span>
-        <span class="timeline-tag">EVARS</span>
-        <span class="timeline-tag">Co-conception</span>
+        <div class="timeline-date" contenteditable="true">Master DAFIR — M2</div>
+        <div class="timeline-title" contenteditable="true">Stage et recherche-intervention · Collège de l'Orne</div>
+        <div class="timeline-body" contenteditable="true">Co-construction de séances d'éducation à la vie affective relationnelle et sexuelle (EVARS) avec l'équipe éducative, à partir des besoins identifiés chez les élèves et les professionnels, dans le cadre d'une recherche-intervention.</div>
+        <span class="timeline-tag" contenteditable="true">Recherche-intervention</span>
+        <span class="timeline-tag" contenteditable="true">EVARS</span>
+        <span class="timeline-tag" contenteditable="true">Co-conception</span>
       </div>
 
     </div>
@@ -1181,14 +1233,14 @@
 <!-- AXE 1 -->
 <section id="axe1">
   <div class="section-inner">
-    <p class="section-eyebrow fade-in visible">Axe 1</p>
-    <h2 class="section-title fade-in visible">L'accompagnement <em>des publics</em></h2>
+    <p class="section-eyebrow fade-in visible" contenteditable="true">Axe 1</p>
+    <h2 class="section-title fade-in visible" contenteditable="true">L'accompagnement <em>des publics</em></h2>
 
     <div class="deux-col">
       <div class="exp-card fade-in visible">
         <div class="exp-icon">🏫</div>
-        <div class="exp-title">Service civique — Le besoin éducatif particulier</div>
-        <div class="exp-body">
+        <div class="exp-title" contenteditable="true">Service civique — Le besoin éducatif particulier</div>
+        <div class="exp-body" contenteditable="true">
           Auprès d'élèves présentant TSA, HPI, dépression, mon rôle mêlait soutien scolaire, aide aux apprentissages et encadrement de petits groupes.<br><br>
           Apprentissage fondamental : <em>accompagner ne consiste pas à transmettre un savoir de façon uniforme, mais à adapter sa posture à la singularité de chaque élève.</em>
         </div>
@@ -1196,8 +1248,8 @@
 
       <div class="exp-card fade-in visible">
         <div class="exp-icon">🤝</div>
-        <div class="exp-title">Stage M1 — La médiation sociale informelle</div>
-        <div class="exp-body">
+        <div class="exp-title" contenteditable="true">Stage M1 — La médiation sociale informelle</div>
+        <div class="exp-body" contenteditable="true">
           À La Voix des Femmes, l'accompagnement se déployait à deux niveaux : l'accueil du public (premier contact, instauration de la confiance) et la médiation sociale informelle, dans la salle principale.<br><br>
           L'essentiel ne passait pas par des dispositifs formalisés, mais par <em>une présence attentive au quotidien</em>, qui se construit dans la durée et la régularité.
         </div>
@@ -1205,19 +1257,19 @@
     </div>
 
     <div class="lecon-block fade-in visible">
-      <h3>Ce que ces deux expériences m'ont appris</h3>
+      <h3 contenteditable="true">Ce que ces deux expériences m'ont appris</h3>
       <ul class="lecon-list">
-        <li>S'ajuster en permanence aux besoins de la personne accompagnée, plutôt qu'appliquer une grille préétablie</li>
-        <li>Construire une relation de confiance avant de pouvoir agir efficacement</li>
-        <li>Accepter de ne pas toujours avoir de réponse immédiate</li>
-        <li>Faire de l'écoute elle-même une forme d'accompagnement à part entière</li>
+        <li contenteditable="true">S'ajuster en permanence aux besoins de la personne accompagnée, plutôt qu'appliquer une grille préétablie</li>
+        <li contenteditable="true">Construire une relation de confiance avant de pouvoir agir efficacement</li>
+        <li contenteditable="true">Accepter de ne pas toujours avoir de réponse immédiate</li>
+        <li contenteditable="true">Faire de l'écoute elle-même une forme d'accompagnement à part entière</li>
       </ul>
     </div>
 
     <div class="difficulte-card fade-in visible">
-      <h3>💡 Ce que mes difficultés m'ont appris</h3>
-      <p>Au début de mon stage à La Voix des Femmes, j'ai eu quelques difficultés à trouver ma place au sein d'une équipe déjà en place, avec ses propres habitudes de travail et à créer un vrai lien avec le public. Cette étape m'a demandé de faire preuve de réflexivité sur la façon dont j'appréhendais mon stage.&nbsp;</p>
-      <p>Pour répondre à cette difficulté, j'ai pris l'initiative de constituer une note récapitulative des activités et des informations utiles à l'accueil, que j'ai enrichie au fil des jours — un outil simple qui m'a permis de gagner en assurance et d'accompagner au mieux les bénéficiaires.</p>
+      <h3 contenteditable="true">💡 Ce que mes difficultés m'ont appris</h3>
+      <p contenteditable="true">Au début de mon stage à La Voix des Femmes, j'ai eu quelques difficultés à trouver ma place au sein d'une équipe déjà en place, avec ses propres habitudes de travail et à créer un vrai lien avec le public. Cette étape m'a demandé de faire preuve de réflexivité sur la façon dont j'appréhendais mon stage.&nbsp;</p>
+      <p contenteditable="true">Pour répondre à cette difficulté, j'ai pris l'initiative de constituer une note récapitulative des activités et des informations utiles à l'accueil, que j'ai enrichie au fil des jours — un outil simple qui m'a permis de gagner en assurance et d'accompagner au mieux les bénéficiaires.</p>
       <div class="quote-block">
         « La confiance professionnelle ne précède pas l'action, elle se construit par elle. »
       </div>
@@ -1235,53 +1287,53 @@
 <!-- AXE 2 -->
 <section id="axe2">
   <div class="section-inner">
-    <p class="section-eyebrow fade-in visible">Axe 2</p>
-    <h2 class="section-title fade-in visible">La prévention en <em>santé et sexualité</em></h2>
+    <p class="section-eyebrow fade-in visible" contenteditable="true">Axe 2</p>
+    <h2 class="section-title fade-in visible" contenteditable="true">La prévention en <em>santé et sexualité</em></h2>
 
     <div class="projet-grid">
       <div class="projet-card fade-in visible">
-        <div class="projet-num">01</div>
-        <div class="projet-title">Mémoire M1 — Interroger les représentations</div>
-        <div class="projet-body">Avant de concevoir quoi que ce soit, j'ai voulu comprendre. Comment les jeunes perçoivent-ils les séances d'EVARS, qu'en attendent-ils ? Cette démarche donnait une place centrale à leur parole plutôt qu'aux objectifs institutionnels.</div>
+        <div class="projet-num" contenteditable="true">01</div>
+        <div class="projet-title" contenteditable="true">Mémoire M1 — Interroger les représentations</div>
+        <div class="projet-body" contenteditable="true">Avant de concevoir quoi que ce soit, j'ai voulu comprendre. Comment les jeunes perçoivent-ils les séances d'EVARS, qu'en attendent-ils ? Cette démarche donnait une place centrale à leur parole plutôt qu'aux objectifs institutionnels.</div>
       </div>
 
       <div class="projet-card fade-in visible">
-        <div class="projet-num">02</div>
-        <div class="projet-title">Stage M1 — De l'écoute individuelle à l'action collective</div>
-        <div class="projet-body">Animation de séances d'éducation à la santé sexuelle auprès de jeunes femmes en foyer de jeunes travailleurs. Mise en pratique des connaissances théoriques dans un contexte sensible, aux côtés de la médiatrice santé.</div>
+        <div class="projet-num" contenteditable="true">02</div>
+        <div class="projet-title" contenteditable="true">Stage M1 — De l'écoute individuelle à l'action collective</div>
+        <div class="projet-body" contenteditable="true">Animation de séances d'éducation à la santé sexuelle auprès de jeunes femmes en foyer de jeunes travailleurs. Mise en pratique des connaissances théoriques dans un contexte sensible, aux côtés de la médiatrice santé.</div>
       </div>
 
       <div class="projet-card fade-in visible">
-        <div class="projet-num">03</div>
-        <div class="projet-title">Café citoyen ménopause — Concevoir quand les ressources manquent</div>
-        <div class="projet-body">Des femmes de plus de 50 ans évoquaient spontanément des bouleversements psychologiques liés à la ménopause sans espace dédié où s'exprimer. Face à la quasi-absence de documentation, j'ai conçu un <strong>jeu de cartes en trois catégories</strong>.</div>
+        <div class="projet-num" contenteditable="true">03</div>
+        <div class="projet-title" contenteditable="true">Café citoyen ménopause — Concevoir quand les ressources manquent</div>
+        <div class="projet-body" contenteditable="true">Des femmes de plus de 50 ans évoquaient spontanément des bouleversements psychologiques liés à la ménopause sans espace dédié où s'exprimer. Face à la quasi-absence de documentation, j'ai conçu un <strong>jeu de cartes en trois catégories</strong>.</div>
       </div>
     </div>
 
     <div class="cartes-block fade-in visible">
-      <h3>Le jeu de cartes — Café citoyen sur la thématique de la ménopause</h3>
+      <h3 contenteditable="true">Le jeu de cartes — Café citoyen sur la thématique de la ménopause</h3>
       <div class="cartes-trio">
         <div class="carte carte-tabou">
           <div class="carte-emoji">🃏</div>
-          <div class="carte-label">Tabou</div>
-          <div class="carte-desc">Sujets rarement évoqués publiquement — libido après 50 ans, rapport à la nudité, sexualité dans le couple.</div>
+          <div class="carte-label" contenteditable="true">Tabou</div>
+          <div class="carte-desc" contenteditable="true">Sujets rarement évoqués publiquement — libido après 50 ans, rapport à la nudité, sexualité dans le couple.</div>
         </div>
         <div class="carte carte-echo">
           <div class="carte-emoji">🪞</div>
-          <div class="carte-label">Écho</div>
-          <div class="carte-desc">L'influence du regard social sur la manière dont chacune vit sa ménopause au quotidien.</div>
+          <div class="carte-label" contenteditable="true">Miroir</div>
+          <div class="carte-desc" contenteditable="true">Un retour sur soi, sur le rapport intime au corps et aux émotions, en dehors du prisme médical.</div>
         </div>
         <div class="carte carte-miroir">
           <div class="carte-emoji">✨</div>
-          <div class="carte-label">Miroir</div>
-          <div class="carte-desc">Un retour sur soi, sur le rapport intime au corps et aux émotions, en dehors du prisme médical.</div>
+          <div class="carte-label" contenteditable="true">Écho</div>
+          <div class="carte-desc" contenteditable="true">L'influence du regard social sur la manière dont chacune vit sa ménopause au quotidien.</div>
         </div>
       </div>
     </div>
 
     <div class="difficulte-card fade-in visible" style="margin-top:2rem;">
-      <h3>🔗 Le lien avec mon stage de M2</h3>
-      <p>Cette double expérience — interroger les représentations, puis concevoir un outil pour y répondre — a directement préparé ma posture de recherche-intervention en M2, où j'ai retrouvé cette même logique appliquée à la prévention de la prostitution des mineurs en collège.</p>
+      <h3 contenteditable="true">🔗 Le lien avec mon stage de M2</h3>
+      <p contenteditable="true">Cette double expérience — interroger les représentations, puis concevoir un outil pour y répondre — a directement préparé ma posture de recherche-intervention en M2, où j'ai retrouvé cette même logique appliquée à la prévention de la prostitution des mineurs en collège.</p>
     </div>
   </div>
 </section>
@@ -1296,65 +1348,65 @@
 <!-- AXE 3 -->
 <section id="axe3">
   <div class="section-inner">
-    <p class="section-eyebrow fade-in visible">Axe 3</p>
-    <h2 class="section-title fade-in visible">Concevoir un dispositif <em>EVARS en collège</em></h2>
+    <p class="section-eyebrow fade-in visible" contenteditable="true">Axe 3</p>
+    <h2 class="section-title fade-in visible" contenteditable="true">Concevoir un dispositif <em>EVARS en collège</em></h2>
 
     <div style="background:var(--cream); border-radius:16px; padding:2rem; margin-bottom:2rem;" class="fade-in visible">
-      <h3 style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--brown-deep); margin-bottom:1rem;">Le contexte du stage</h3>
-      <p style="font-size:0.95rem; line-height:1.7; color:var(--brown-mid);">Collège de l'Orne, milieu rural. Stage et&nbsp;<strong>recherche-intervention</strong> articulant analyse des besoins, observations de terrain, co-conception d'outils, expérimentation en classe et analyse réflexive. Concept de <em>tiers espace socio-scientifique</em> (JF. Marcel) : articulation entre recherche universitaire et pratiques de terrain.</p>
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--brown-deep); margin-bottom:1rem;" contenteditable="true">Le contexte du stage</h3>
+      <p style="font-size:0.95rem; line-height:1.7; color:var(--brown-mid);" contenteditable="true">Collège de l'Orne, milieu rural. Stage et&nbsp;<strong>recherche-intervention</strong> articulant analyse des besoins, observations de terrain, co-conception d'outils, expérimentation en classe et analyse réflexive. Concept de <em>tiers espace socio-scientifique</em> (JF. Marcel) : articulation entre recherche universitaire et pratiques de terrain.</p>
     </div>
 
     <div class="objectif-block fade-in visible">
-      <h3>Les trois objectifs de la séance</h3>
-      <p style="font-size:0.9rem; color:var(--brown-mid); margin-bottom:1.5rem;">Séance sur la prévention de la prostitution des mineurs, destinée aux classes de 4ème.</p>
+      <h3 contenteditable="true">Les trois objectifs de la séance</h3>
+      <p style="font-size:0.9rem; color:var(--brown-mid); margin-bottom:1.5rem;" contenteditable="true">Séance sur la prévention de la prostitution des mineurs, destinée aux classes de 4ème.</p>
       <div class="objectifs-trio">
         <div class="obj-item">
           <div class="obj-icon">📚</div>
-          <div class="obj-label">Connaissances</div>
-          <div class="obj-desc">Comprendre le cadre légal, identifier que toute prostitution de mineur est une violence, reconnaître les mécanismes d'emprise.</div>
+          <div class="obj-label" contenteditable="true">Connaissances</div>
+          <div class="obj-desc" contenteditable="true">Comprendre le cadre légal, identifier que toute prostitution de mineur est une violence, reconnaître les mécanismes d'emprise.</div>
         </div>
         <div class="obj-item">
           <div class="obj-icon">🧠</div>
-          <div class="obj-label">Compétences psychosociales</div>
-          <div class="obj-desc">Savoir dire non, reconnaître une situation dangereuse, savoir demander de l'aide.</div>
+          <div class="obj-label" contenteditable="true">Compétences psychosociales</div>
+          <div class="obj-desc" contenteditable="true">Savoir dire non, reconnaître une situation dangereuse, savoir demander de l'aide.</div>
         </div>
         <div class="obj-item">
           <div class="obj-icon">💛</div>
-          <div class="obj-label">Attitudes</div>
-          <div class="obj-desc">Développer l'empathie envers les victimes, rejeter la culpabilisation.</div>
+          <div class="obj-label" contenteditable="true">Attitudes</div>
+          <div class="obj-desc" contenteditable="true">Développer l'empathie envers les victimes, rejeter la culpabilisation.</div>
         </div>
       </div>
     </div>
 
     <div class="progression fade-in visible" style="margin-top:1.5rem;">
-      <h3>Une progression pédagogique en quatre temps</h3>
+      <h3 contenteditable="true">Une progression pédagogique en quatre temps</h3>
       <div class="etapes">
         <div class="etape">
           <div class="etape-num">1</div>
-          <div class="etape-title">Vrai / Faux</div>
-          <div class="etape-desc">Situer le niveau de connaissance et déconstruire les idées reçues dès le départ.</div>
+          <div class="etape-title" contenteditable="true">Vrai / Faux</div>
+          <div class="etape-desc" contenteditable="true">Situer le niveau de connaissance et déconstruire les idées reçues dès le départ.</div>
         </div>
         <div class="etape">
           <div class="etape-num">2</div>
-          <div class="etape-title">« À quel moment ça dérape ? »</div>
-          <div class="etape-desc">Jeu chronologique — replacer dans l'ordre des situations d'emprise progressive et placer une ligne rouge sur le moment où la bascule dans la prostitution semble être la plus nette.</div>
+          <div class="etape-title" contenteditable="true">« À quel moment ça dérape ? »</div>
+          <div class="etape-desc" contenteditable="true">Jeu chronologique — replacer dans l'ordre des situations d'emprise progressive et placer une ligne rouge sur le moment où la bascule dans la prostitution semble être la plus nette.</div>
         </div>
         <div class="etape">
           <div class="etape-num">3</div>
-          <div class="etape-title">Vidéo récapitulative</div>
-          <div class="etape-desc">Consolider les messages clés délivrés précédemment de façon visuelle et mémorisable.</div>
+          <div class="etape-title" contenteditable="true">Vidéo récapitulative</div>
+          <div class="etape-desc" contenteditable="true">Consolider les messages clés délivrés précédemment de façon visuelle et mémorisable.</div>
         </div>
         <div class="etape">
           <div class="etape-num">4</div>
-          <div class="etape-title">Le mur des ressources</div>
-          <div class="etape-desc">Les élèves obtiennent un flyer retraçant les informations importantes à savoir en cas de danger : à qui parler et quels gestes adopter. Numéros 119, 3018.</div>
+          <div class="etape-title" contenteditable="true">Le mur des ressources</div>
+          <div class="etape-desc" contenteditable="true">Les élèves obtiennent un flyer retraçant les informations importantes à savoir en cas de danger : à qui parler et quels gestes adopter. Numéros 119, 3018.</div>
         </div>
       </div>
     </div>
 
     <div class="difficulte-card fade-in visible" style="margin-top:2rem;">
-      <h3>🎯 Le choix du jeu — une intention précise</h3>
-      <p>Aborder un sujet grave sans figer les élèves dans la peur, en passant par le jeu et l'interaction plutôt que par le seul discours informatif. Le jeu chronologique en particulier répond à une intention : montrer que la vigilance se construit dans la durée, et non au moment où « il est trop tard ».</p>
+      <h3 contenteditable="true">🎯 Le choix du jeu — une intention précise</h3>
+      <p contenteditable="true">Aborder un sujet grave sans figer les élèves dans la peur, en passant par le jeu et l'interaction plutôt que par le seul discours informatif. Le jeu chronologique en particulier répond à une intention : montrer que la vigilance se construit dans la durée, et non au moment où « il est trop tard ».</p>
     </div>
   </div>
 </section>
@@ -1369,54 +1421,54 @@
 <!-- BILAN -->
 <section id="bilan">
   <div class="section-inner">
-    <p class="section-eyebrow fade-in visible">Bilan réflexif</p>
-    <h2 class="section-title fade-in visible">Perspectives <em>professionnelles</em></h2>
+    <p class="section-eyebrow fade-in visible" contenteditable="true">Bilan réflexif</p>
+    <h2 class="section-title fade-in visible" contenteditable="true">Perspectives <em>professionnelles</em></h2>
 
-    <p class="fade-in visible" style="font-size:1rem; line-height:1.8; color:var(--sand); margin-bottom:2rem; max-width:700px;">Une logique se dessine clairement : chaque expérience a progressivement déplacé mon regard de l'accompagnement individuel vers la prévention, puis vers la conception de dispositifs destinés à soutenir à la fois les professionnels et les publics.</p>
+    <p class="fade-in visible" style="font-size:1rem; line-height:1.8; color:var(--sand); margin-bottom:2rem; max-width:700px;" contenteditable="true">Une logique se dessine clairement : chaque expérience a progressivement déplacé mon regard de l'accompagnement individuel vers la prévention, puis vers la conception de dispositifs destinés à soutenir à la fois les professionnels et les publics.</p>
 
     <div class="competences-grid">
       <div class="comp-card fade-in visible">
         <div class="comp-icon">🛠️</div>
-        <div class="comp-title">Prévention et promotion de la santé</div>
-        <div class="comp-desc">Concevoir et mettre en œuvre des actions de prévention favorisant le développement des connaissances, des compétences psychosociales et du pouvoir d'agir des publics.</div>
+        <div class="comp-title" contenteditable="true">Prévention et promotion de la santé</div>
+        <div class="comp-desc" contenteditable="true">Concevoir et mettre en œuvre des actions de prévention favorisant le développement des connaissances, des compétences psychosociales et du pouvoir d'agir des publics.</div>
       </div>
       <div class="comp-card fade-in visible">
         <div class="comp-icon">🤲</div>
-        <div class="comp-title">Conduite de projets partenariaux</div>
-        <div class="comp-desc">Co-construire des actions de prévention avec les professionnels de terrain, en articulant leurs besoins, ceux des publics et les objectifs du projet.</div>
+        <div class="comp-title" contenteditable="true">Conduite de projets partenariaux</div>
+        <div class="comp-desc" contenteditable="true">Co-construire des actions de prévention avec les professionnels de terrain, en articulant leurs besoins, ceux des publics et les objectifs du projet.</div>
       </div>
       <div class="comp-card fade-in visible">
         <div class="comp-icon">🔍</div>
-        <div class="comp-title">Analyse des besoins</div>
-        <div class="comp-desc">Identifier les besoins des publics et des professionnels afin de construire des actions adaptées au contexte et aux réalités du terrain.</div>
+        <div class="comp-title" contenteditable="true">Analyse des besoins</div>
+        <div class="comp-desc" contenteditable="true">Identifier les besoins des publics et des professionnels afin de construire des actions adaptées au contexte et aux réalités du terrain.</div>
       </div>
       <div class="comp-card fade-in visible">
         <div class="comp-icon">🔬</div>
-        <div class="comp-title">Évaluation et démarche réflexive</div>
-        <div class="comp-desc">Analyser les pratiques, évaluer les actions menées et ajuster sa posture professionnelle dans une logique d'amélioration continue.</div>
+        <div class="comp-title" contenteditable="true">Évaluation et démarche réflexive</div>
+        <div class="comp-desc" contenteditable="true">Analyser les pratiques, évaluer les actions menées et ajuster sa posture professionnelle dans une logique d'amélioration continue.</div>
       </div>
     </div>
 
     <div class="limite-block fade-in visible">
-      <h3>🪞&nbsp;</h3><h2 data-section-id="whug7u" data-start="1203" data-end="1243" class="PDq2pG_selectionAnchorContainer"><span role="text"><strong data-start="1206" data-end="1243">Mes perspectives professionnelles</strong></span></h2>
-<p data-start="1245" data-end="1476"></p>
-      <p>Aujourd'hui, je souhaite poursuivre mon engagement dans le champ de la prévention, en contribuant à la conception, à la coordination et au déploiement d'actions répondant aux enjeux de santé, d'égalité et de protection des publics.</p>
-      <p><br></p><p data-start="1478" data-end="1767" class="PDq2pG_selectionAnchorContainer"><span style="font-size: 0.9rem;">Les fonctions de&nbsp;</span><strong data-start="1495" data-end="1534" style="font-size: 0.9rem;">chargée de mission prévention santé</strong><span style="font-size: 0.9rem;">,&nbsp;</span><strong data-start="1536" data-end="1557" style="font-size: 0.9rem;">chargée de projet</strong><span style="font-size: 0.9rem;">,&nbsp;</span><strong data-start="1559" data-end="1590" style="font-size: 0.9rem;">coordinatrice de prévention</strong><span style="font-size: 0.9rem;">,&nbsp;</span><strong data-start="1592" data-end="1620" style="font-size: 0.9rem;">chargée de mission EVARS</strong><span style="font-size: 0.9rem;">&nbsp;ou&nbsp;</span><strong data-start="1624" data-end="1654" style="font-size: 0.9rem;">chargée de mission égalité</strong><span style="font-size: 0.9rem;">&nbsp;s'inscrivent pleinement dans la continuité de mon parcours et des compétences développées au cours de ce master.</span></p>
-<p data-start="1769" data-end="2062"></p><p>Je souhaite intégrer une structure dans laquelle je pourrai participer au développement de projets de prévention fondés sur les besoins des publics, travailler en partenariat avec les professionnels de terrain et contribuer à des actions ayant un impact concret sur les personnes accompagnées.</p>
-      <p></p><p data-start="1769" data-end="2062" class="PDq2pG_selectionAnchorContainer"><br></p><p></p>
+      <h3 contenteditable="true">🪞&nbsp;</h3><h2 data-section-id="whug7u" data-start="1203" data-end="1243" class="PDq2pG_selectionAnchorContainer" contenteditable="true"><span role="text" contenteditable="true"><strong data-start="1206" data-end="1243">Mes perspectives professionnelles</strong></span><span aria-hidden="true" class="PDq2pG_selectionAnchor" contenteditable="true"></span></h2>
+<p data-start="1245" data-end="1476" contenteditable="true"></p>
+      <p contenteditable="true">Aujourd'hui, je souhaite poursuivre mon engagement dans le champ de la prévention, en contribuant à la conception, à la coordination et au déploiement d'actions répondant aux enjeux de santé, d'égalité et de protection des publics.</p>
+      <p contenteditable="true"><br></p><p data-start="1478" data-end="1767" class="PDq2pG_selectionAnchorContainer" contenteditable="true"><span style="font-size: 0.9rem;" contenteditable="true">Les fonctions de&nbsp;</span><strong data-start="1495" data-end="1534" style="font-size: 0.9rem;">chargée de mission prévention santé</strong><span style="font-size: 0.9rem;" contenteditable="true">,&nbsp;</span><strong data-start="1536" data-end="1557" style="font-size: 0.9rem;">chargée de projet</strong><span style="font-size: 0.9rem;" contenteditable="true">,&nbsp;</span><strong data-start="1559" data-end="1590" style="font-size: 0.9rem;">coordinatrice de prévention</strong><span style="font-size: 0.9rem;" contenteditable="true">,&nbsp;</span><strong data-start="1592" data-end="1620" style="font-size: 0.9rem;">chargée de mission EVARS</strong><span style="font-size: 0.9rem;" contenteditable="true">&nbsp;ou&nbsp;</span><strong data-start="1624" data-end="1654" style="font-size: 0.9rem;">chargée de mission égalité</strong><span style="font-size: 0.9rem;" contenteditable="true">&nbsp;s'inscrivent pleinement dans la continuité de mon parcours et des compétences développées au cours de ce master.</span></p>
+<p data-start="1769" data-end="2062" contenteditable="true"></p><p contenteditable="true">Je souhaite intégrer une structure dans laquelle je pourrai participer au développement de projets de prévention fondés sur les besoins des publics, travailler en partenariat avec les professionnels de terrain et contribuer à des actions ayant un impact concret sur les personnes accompagnées.</p>
+      <p contenteditable="true"></p><p data-start="1769" data-end="2062" class="PDq2pG_selectionAnchorContainer" contenteditable="true"><br></p><p contenteditable="true"></p>
     </div>
 
     <div class="perspective-block fade-in visible">
-      <div class="big-quote">« Les expériences présentées dans ce portfolio ont progressivement façonné ma manière d'envisager mon métier : une pratique fondée sur l'écoute et l'analyse des besoins, le travail partenarial et le développement d'actions de prévention au plus près des réalités du terrain. »</div>
-      <div class="attr">— Marion Féret, Bilan réflexif · Portfolio DAFIR M2</div>
+      <div class="big-quote" contenteditable="true">« Les expériences présentées dans ce portfolio ont progressivement façonné ma manière d'envisager mon métier : une pratique fondée sur l'écoute et l'analyse des besoins, le travail partenarial et le développement d'actions de prévention au plus près des réalités du terrain. »</div>
+      <div class="attr" contenteditable="true">— Marion Féret, Bilan réflexif · Portfolio DAFIR M2</div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="f-name">Marion Féret</div>
-  <div class="f-sub">Master DAFIR · Sciences de l'éducation et de la formation · Université de Caen Normandie · 2024–2026</div>
+  <div class="f-name" contenteditable="true">Marion Féret</div>
+  <div class="f-sub" contenteditable="true">Master DAFIR · Sciences de l'éducation et de la formation · Université de Caen Normandie · 2024–2026</div>
 </footer>
 
 <script>
@@ -1464,5 +1516,50 @@
 
   fadeEls.forEach(el => fadeObserver.observe(el));
 </script>
+
+<script>
+  // ─── MODE ÉDITION AJOUTÉ ───
+  const editableSelectors = [
+    'p', 'h1', 'h2', 'h3', 'span:not(.nav-label)', 'div.timeline-date',
+    'div.timeline-title', 'div.timeline-body', 'div.timeline-tag',
+    'div.axe-card-num', 'div.axe-card-title', 'div.axe-card-desc',
+    'div.exp-title', 'div.exp-body', 'li',
+    'div.projet-num', 'div.projet-title', 'div.projet-body',
+    'div.carte-label', 'div.carte-desc',
+    'div.obj-label', 'div.obj-desc',
+    'div.etape-title', 'div.etape-desc',
+    'div.comp-title', 'div.comp-desc',
+    'div.big-quote', 'div.attr', 'div.f-name', 'div.f-sub'
+  ];
+
+  function applyEditable() {
+    document.querySelectorAll(editableSelectors.join(',')).forEach(el => {
+      if (!el.closest('.edit-toolbar') && !el.closest('script') && !el.closest('style')) {
+        el.setAttribute('contenteditable', 'true');
+      }
+    });
+  }
+
+  function toggleEdit() {
+    applyEditable();
+    document.body.classList.toggle('edit-mode');
+  }
+
+  function downloadEdited() {
+    applyEditable();
+    const clone = document.documentElement.cloneNode(true);
+    const blob = new Blob(['<!DOCTYPE html>\n' + clone.outerHTML], {type: 'text/html;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'Portfolio_Marion_Feret_modifie.html';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(a.href);
+  }
+
+  window.addEventListener('DOMContentLoaded', applyEditable);
+</script>
+
 
 </body></html>
